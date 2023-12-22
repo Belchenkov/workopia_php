@@ -1,13 +1,13 @@
-<?php loadPartial('head') ?>
+<?= loadPartial('head') ?>
 
 <!-- Nav -->
-<?php loadPartial('navbar') ?>
+<?= loadPartial('navbar') ?>
 
 <!-- Showcase -->
-<?php loadPartial('showcase-search') ?>
+<?= loadPartial('showcase-search') ?>
 
 <!-- Top Banner -->
-<?php loadPartial('top-banner') ?>
+<?= loadPartial('top-banner') ?>
 
 <!-- Job Listings -->
 <section>
@@ -200,6 +200,6 @@
 </section>
 
 <!-- Bottom Banner -->
-<?php loadPartial('bottom-banner') ?>
+<?= loadPartial('bottom-banner') ?>
 
-<?php loadPartial('footer') ?>
+<?= loadPartial('footer') ?>
