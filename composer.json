@@ -1,0 +1,16 @@
+{
+  "name": "belchenkov/workopia-php",
+  "description": "Job listing app",
+  "authors": [
+    {
+      "name": "Aleksey Belchenkov",
+      "email": "belchenkov.test@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Framework\\": "Framework/",
+      "App\\": "App/"
+    }
+  }
+}
