@@ -12,9 +12,9 @@ class Router
      * @param string $method
      * @param string $uri
      * @param string $action
-     * @return array
+     * @return void
      */
-    public function registerRoute(string $method, string $uri, string $action): array
+    public function registerRoute(string $method, string $uri, string $action): void
     {
         [$controller, $controller_method] = explode('@', $action);
 
