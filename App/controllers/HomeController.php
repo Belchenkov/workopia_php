@@ -16,7 +16,12 @@ class HomeController
         $this->db = new Database($config);
     }
 
-    public function index()
+    /*
+     * Show the latest listings
+     *
+     * @return void
+     */
+    public function index(): void
     {
         $listings = $this->db->query('SELECT * FROM listings LIMIT 6')->fetchAll();
 
