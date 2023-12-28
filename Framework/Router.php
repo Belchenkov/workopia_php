@@ -6,7 +6,7 @@ use App\Controllers\ErrorController;
 
 class Router
 {
-    protected $routes = [];
+    protected array $routes = [];
 
     /**
      * Add a new route
@@ -35,7 +35,7 @@ class Router
      * @param string $controller
      * @return void
      */
-    public function get($uri, $controller)
+    public function get(string $uri, string $controller): void
     {
         $this->registerRoute('GET', $uri, $controller);
     }
@@ -47,7 +47,7 @@ class Router
      * @param string $controller
      * @return void
      */
-    public function post($uri, $controller)
+    public function post(string $uri, string $controller): void
     {
         $this->registerRoute('POST', $uri, $controller);
     }
@@ -59,7 +59,7 @@ class Router
      * @param string $controller
      * @return void
      */
-    public function put($uri, $controller)
+    public function put(string $uri, string $controller): void
     {
         $this->registerRoute('PUT', $uri, $controller);
     }
@@ -71,22 +71,9 @@ class Router
      * @param string $controller
      * @return void
      */
-    public function delete($uri, $controller)
+    public function delete(string $uri, string $controller): void
     {
         $this->registerRoute('DELETE', $uri, $controller);
-    }
-
-    /**
-     * Load error page
-     * @param int $httpCode
-     *
-     * @return void
-     */
-    public function error($httpCode = 404)
-    {
-        http_response_code($httpCode);
-        loadView("error/{$httpCode}");
-        exit;
     }
 
     /**
@@ -97,33 +84,32 @@ class Router
      */
     public function route(string $uri): void
     {
-        $requestMethod = $_SERVER['REQUEST_METHOD'];
+        $request_method = $_SERVER['REQUEST_METHOD'];
 
         foreach ($this->routes as $route) {
-// Split the current URI into segments
-            $uriSegments = explode('/', trim($uri, '/'));
+            // Split the current URI into segments
+            $uri_segments = explode('/', trim($uri, '/'));
 
             // Split the route URI into segments
-            $routeSegments = explode('/', trim($route['uri'], '/'));
+            $route_segments = explode('/', trim($route['uri'], '/'));
 
             $match = true;
 
             // Check if the number of segments matches
-            if (count($uriSegments) === count($routeSegments) && strtoupper($route['method'] === $requestMethod)) {
+            if (count($uri_segments) === count($route_segments) && strtoupper($route['method'] === $request_method)) {
                 $params = [];
-
                 $match = true;
 
-                for ($i = 0; $i < count($uriSegments); $i++) {
+                for ($i = 0; $i < count($uri_segments); $i++) {
                     // If the uri's do not match and there is no param
-                    if ($routeSegments[$i] !== $uriSegments[$i] && !preg_match('/\{(.+?)\}/', $routeSegments[$i])) {
+                    if ($route_segments[$i] !== $uri_segments[$i] && !preg_match('/\{(.+?)\}/', $route_segments[$i])) {
                         $match = false;
                         break;
                     }
 
                     // Check for the param and add to $params array
-                    if (preg_match('/\{(.+?)\}/', $routeSegments[$i], $matches)) {
-                        $params[$matches[1]] = $uriSegments[$i];
+                    if (preg_match('/\{(.+?)\}/', $route_segments[$i], $matches)) {
+                        $params[$matches[1]] = $uri_segments[$i];
                     }
                 }
 
@@ -131,7 +117,7 @@ class Router
                     $controller = 'App\\Controllers\\' . $route['controller'];
                     $controller_method = $route['controller_method'];
 
-                    // Instatiate the controller and call the method
+                    // Instantiate the controller and call the method
                     $controllerInstance = new $controller();
                     $controllerInstance->$controller_method($params);
                     return;
