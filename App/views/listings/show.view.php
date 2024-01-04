@@ -27,7 +27,11 @@
                     <li class="mb-2">
                         <strong>Location:</strong> <?= $listing->city ?>, <?= $listing->state ?>
                     </li>
-                    <li class="mb-2"><strong>Tags:</strong> <?= $listing->tags ?></li>
+                    <?php if (!empty($listing->tags)) : ?>
+                        <li class="mb-2">
+                            <strong>Tags:</strong> <?= $listing->tags ?>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>

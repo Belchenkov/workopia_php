@@ -8,10 +8,10 @@ class Validation
      *
      * @param string $value
      * @param int $min
-     * @param int $max
+     * @param mixed $max
      * @return bool
      */
-    public static function string(string $value, int $min = 1, int $max): bool
+    public static function string(string $value, int $min = 1, $max = INF): bool
     {
         if (is_string($value)) {
             $value = trim($value);

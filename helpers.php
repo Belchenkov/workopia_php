@@ -6,7 +6,7 @@
  * @param string $path
  * @return string
  */
-function basePath($path = '')
+function basePath(string $path = ''): string
 {
     return __DIR__ . '/' . $path;
 }
@@ -15,10 +15,10 @@ function basePath($path = '')
  * Load a view
  *
  * @param string $name
+ * @param array $data
  * @return void
- *
  */
-function loadView($name, $data = [])
+function loadView(string $name, array $data = []): void
 {
     $viewPath = basePath("App/views/{$name}.view.php");
 
@@ -35,10 +35,10 @@ function loadView($name, $data = [])
  * Load a partial
  *
  * @param string $name
+ * @param array $data
  * @return void
- *
  */
-function loadPartial($name, $data = [])
+function loadPartial(string $name, array $data = []): void
 {
     $partialPath = basePath("App/views/partials/{$name}.php");
 
@@ -56,7 +56,7 @@ function loadPartial($name, $data = [])
  * @param mixed $value
  * @return void
  */
-function inspect($value)
+function inspect(mixed $value): void
 {
     echo '<pre>';
     var_dump($value);
@@ -69,7 +69,7 @@ function inspect($value)
  * @param mixed $value
  * @return void
  */
-function inspectAndDie($value)
+function inspectAndDie(mixed $value): void
 {
     echo '<pre>';
     die(var_dump($value));
@@ -82,7 +82,7 @@ function inspectAndDie($value)
  * @param string $salary
  * @return string Formatted Salary
  */
-function formatSalary($salary)
+function formatSalary(string $salary): string
 {
     return '$' . number_format(floatval($salary));
 }
@@ -93,7 +93,7 @@ function formatSalary($salary)
  * @param string $dirty
  * @return string
  */
-function sanitize($dirty)
+function sanitize(string $dirty): string
 {
     return filter_var(trim($dirty), FILTER_SANITIZE_SPECIAL_CHARS);
 }
@@ -104,7 +104,7 @@ function sanitize($dirty)
  * @param string $url
  * @return void
  */
-function redirect($url)
+function redirect(string $url): void
 {
     header("Location: {$url}");
     exit;
