@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Exception;
 use Framework\Database;
 use Framework\Validation;
 
@@ -10,7 +11,7 @@ class ListingController
     protected Database $db;
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct()
     {
@@ -147,7 +148,7 @@ class ListingController
      *
      * @param array $params
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(array $params): void
     {
@@ -165,6 +166,9 @@ class ListingController
         }
 
         $this->db->query('DELETE FROM listings WHERE id = :id', $params);
+
+        // Set flash message
+        $_SESSION['success_message'] = 'Listing deleted successfully';
 
         redirect('/listings');
     }
