@@ -78,7 +78,7 @@ class ListingController
      * @return void
      * @throws Exception
      */
-    public function edit(array $params): void
+    public function edit(array $params)
     {
         $id = $params['id'] ?? '';
 
@@ -92,6 +92,12 @@ class ListingController
         if (!$listing) {
             ErrorController::notFound('Listing not found');
             return;
+        }
+
+        // Authorization
+        if (!Authorization::isOwner($listing->user_id)) {
+            Session::setFlashMessage('error_message', 'You are not authoirzed to update this listing');
+            return redirect('/listings/' . $listing->id);
         }
 
         loadView('listings/edit', [
@@ -183,7 +189,7 @@ class ListingController
      * @return void
      * @throws Exception
      */
-    public function update(array $params): void
+    public function update(array $params)
     {
         $id = $params['id'] ?? '';
 
@@ -197,6 +203,12 @@ class ListingController
         if (!$listing) {
             ErrorController::notFound('Listing not found');
             return;
+        }
+
+        // Authorization
+        if (!Authorization::isOwner($listing->user_id)) {
+            Session::setFlashMessage('error_message', 'You are not authoirzed to update this listing');
+            return redirect('/listings/' . $listing->id);
         }
 
         $allowedFields = [
